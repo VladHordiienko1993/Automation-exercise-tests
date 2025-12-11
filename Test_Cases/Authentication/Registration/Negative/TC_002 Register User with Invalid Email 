@@ -1,0 +1,32 @@
+ID: TC_002
+Title: Register user with invalid email
+Priority: High
+Severity: Medium
+Preconditions:
+* User not logged in
+Test Data: 
+* Name: Vlad Test (for all sets)
+Set 1 - Missing @:* Email: vladtest.gmail.com * Expected: Email validation error 
+Set 2 - Space in email: * Email: vlad test@gmail.com * Expected: Email validation error 
+Set 3 - Incomplete domain: * Email: vladtest@ * Expected: Email validation error 
+Set 4 - Invalid domain: * Email: vladtest@h * Expected: Email validation error
+
+Steps:
+1. Navigate to “https://automationexercise.com/login”
+2. Verify "New User Signup!" visible
+3. Enter name in “Name” field
+4. Enter invalid email (from Test Data Set)
+5. Click "Signup" button
+6. Verify error message displayed near email field
+7. Verify "New User Signup!" form still visible (not proceeded)
+
+Expected result:
+1. Email validation error message displayed (e.g., "Invalid email format" or browser validation)
+2. Signup button does not proceed to next step
+3. "New User Signup!" form remains visible
+4. No account created in system
+5. User stays on /login page
+6. No navigation to account creation form
+
+Actual result:
+Status: Not Run
