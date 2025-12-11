@@ -4,6 +4,7 @@ const SignupLoginPage = require('../../pages/SignupLoginPage');
 const SignupPage = require('../../pages/SignupPage');
 const AccountCreatedPage = require('../../pages/AccountCreatedPage');
 const DeleteAccountPage = require('../../pages/DeleteAccountPage');
+const testData = require('../../test-data/users');
 
 test('TC_001 Register new user', async({page})=>{
      const homePage = new HomePage(page);
@@ -18,13 +19,16 @@ test('TC_001 Register new user', async({page})=>{
      await homePage.clickSignupLoginButton();
      await expect(page).toHaveURL('/login');
      await expect(signupLoginPage.newUserSignupFormHeader).toBeVisible();
-     await signupLoginPage.fillSignupForm('Vlad Test','vladtest1233210@test.com');
+     await signupLoginPage.fillSignupForm(testData.validUser.name, testData.validUser.email);
      await signupLoginPage.clickSignup();
      await expect(page).toHaveURL('/signup');
      await expect(signupPage.formHeaderTitle).toBeVisible();
      await signupPage.fillAccountInfo('Test123!','1','1','1995');
      await signupPage.checkNewsLetterAndOffers();
-     await signupPage.fillAddressInfo('Vlad','Tester','Test Company','123 Test Street','India','Maharashtra','Mumbai','400001','+353123456789');
+     await signupPage.fillAddressInfo(
+        testData.validUser.firstName,testData.validUser.lastName,testData.validUser.companyName,
+        testData.validUser.address,testData.validUser.country,testData.validUser.state,
+        testData.validUser.city,testData.validUser.zipcode,testData.validUser.mobile);
      await signupPage.clickCreateAccount();
      await expect(page).toHaveURL('/account_created');
      await expect(accountCreatedPage.accountCreatedMessage).toBeVisible();

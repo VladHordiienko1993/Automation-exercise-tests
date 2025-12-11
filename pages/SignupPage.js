@@ -8,7 +8,7 @@ class SignupPage{
 
         this.page = page;
         this.formHeaderTitle = page.getByText("Enter Account Information Title Mr. Mrs. Name * Email * Password * Date of");
-        this.radioPerson = page.getByRole("radio", { name: "Mr." });
+        this.radioPersonMr = page.getByRole("radio", { name: "Mr." });
         this.passwordInput = page.getByRole("textbox", { name: "Password *" });
         this.dayDropdown = page.locator("#days");
         this.monthDropdown = page.locator("#months");
@@ -28,7 +28,7 @@ class SignupPage{
     }
 
     async fillAccountInfo(password,day,month,year){
-        await this.radioPerson.check();
+        await this.radioPersonMr.check();
         await this.passwordInput.fill(password);
         await this.dayDropdown.selectOption(day);
         await this.monthDropdown.selectOption(month);

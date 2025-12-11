@@ -11,7 +11,7 @@ class DeleteAccountPage{
     }
 
     async clickContinueButton(){
-        await this.continueButton.click()
+        await this.continueButton.click({force: true})
     }
 };
 
