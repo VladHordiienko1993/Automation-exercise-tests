@@ -46,9 +46,10 @@ Expected Result:
 6. "ACCOUNT DELETED!" message (URL /delete_account)
 
 Actual Result:
-
-Status: Not Run
+As expected
 
 Post-conditions:	
 * User account deleted from system
 * Test email available for reuse
+
+Status: Passed 

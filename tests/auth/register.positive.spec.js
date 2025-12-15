@@ -6,7 +6,7 @@ const AccountCreatedPage = require('../../pages/AccountCreatedPage');
 const DeleteAccountPage = require('../../pages/DeleteAccountPage');
 const testData = require('../../test-data/users');
 
-test('TC_001 Register new user', async({page})=>{
+test('TC_001: Register New User with Valid Data (E2E)', async({page})=>{
      const homePage = new HomePage(page);
      const signupLoginPage = new SignupLoginPage(page);
      const signupPage = new SignupPage(page);
@@ -23,7 +23,7 @@ test('TC_001 Register new user', async({page})=>{
      await signupLoginPage.clickSignup();
      await expect(page).toHaveURL('/signup');
      await expect(signupPage.formHeaderTitle).toBeVisible();
-     await signupPage.fillAccountInfo('Test123!','1','1','1995');
+     await signupPage.fillAccountInfo(testData.validUser.password,testData.validUser.day,testData.validUser.month,testData.validUser.year);
      await signupPage.checkNewsLetterAndOffers();
      await signupPage.fillAddressInfo(
         testData.validUser.firstName,testData.validUser.lastName,testData.validUser.companyName,

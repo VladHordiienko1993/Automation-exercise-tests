@@ -1,32 +1,42 @@
 ID: TC_002
-Title: Register user with invalid email
+Title: Registration with Invalid Email
 Priority: High
 Severity: Medium
 Preconditions:
 * User not logged in
 Test Data: 
 * Name: Vlad Test (for all sets)
-Set 1 - Missing @:* Email: vladtest.gmail.com * Expected: Email validation error 
-Set 2 - Space in email: * Email: vlad test@gmail.com * Expected: Email validation error 
-Set 3 - Incomplete domain: * Email: vladtest@ * Expected: Email validation error 
-Set 4 - Invalid domain: * Email: vladtest@h * Expected: Email validation error
+Set 1 - Missing @:
+* Email: vladtest.gmail.com
+Set 2 - Space in email:
+* Email: vlad test@gmail.com
+Set 3 - Incomplete domain:
+* Email: vladtest@
+Set 4 - Invalid domain:
+* Email: vladtest@.com
+Set 5 - Email already exists:
+* Email: vladTest1@gmail.com (from TC_003)
+Set 6 - Empty email:
+* Email: "" (empty)
 
 Steps:
-1. Navigate to “https://automationexercise.com/login”
-2. Verify "New User Signup!" visible
-3. Enter name in “Name” field
-4. Enter invalid email (from Test Data Set)
-5. Click "Signup" button
-6. Verify error message displayed near email field
-7. Verify "New User Signup!" form still visible (not proceeded)
+1. Navigate to '/login'
+2. Enter name in "Name" field
+3. Enter invalid email (from Test Data Set)
+4. Click "Signup" button
 
-Expected result:
-1. Email validation error message displayed (e.g., "Invalid email format" or browser validation)
-2. Signup button does not proceed to next step
-3. "New User Signup!" form remains visible
-4. No account created in system
-5. User stays on /login page
-6. No navigation to account creation form
+Expected Result:
+1. Error message displayed:
+   - For invalid format: browser validation OR custom error
+   - For existing email: "Email Address already exist!"
+2. Signup unsuccessful:
+   - URL remains: '/login'
+   - "New User Signup!" form still visible
+3. Form remains functional for retry
 
 Actual result:
-Status: Not Run
+Set 5 - Email already exists: 
+- URL changes to '/signup' (current behavior, see BUG_001)
+- Error message "Email Address already exist!" visible
+
+Status: Failed (known bug)

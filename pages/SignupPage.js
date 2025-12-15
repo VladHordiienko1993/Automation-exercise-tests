@@ -2,7 +2,10 @@
 
 
 class SignupPage{
-
+/**
+     * 
+     * @param {import('@playwright/test').Page} page 
+     */
 
     constructor(page){
 
@@ -26,7 +29,7 @@ class SignupPage{
         this.mobileInput = page.getByRole("textbox", { name: "Mobile Number *" });
         this.createAccountButton = page.getByRole("button", { name: "Create Account" });
     }
-
+ 
     async fillAccountInfo(password,day,month,year){
         await this.radioPersonMr.check();
         await this.passwordInput.fill(password);
