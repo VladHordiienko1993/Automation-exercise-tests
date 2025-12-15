@@ -6,54 +6,40 @@ Severity: Blocker
 
 Preconditions:
 * User not logged in
-* Permanent test user exists in system (Email: vladTest1@gmail.com,         Password: vladTest1)
+* Permanent test user exists in system (Email: vladTest1@gmail.com, Password: vladTest1)
 * Note: Create this user once manually before first test run
 
 Test Data:
 * Email: vladTest1@gmail.com
-* Password:  vladTest1
+* Password: vladTest1
 
 Steps:
-1. Navigate to “https://automationexercise.com/login”
-2. Verify “Login to your account” section visible
+1. Navigate to '/login'
+2. Enter email: vladTest1@gmail.com
+3. Enter password: vladTest1
+4. Click "Login" button
+5. Click "Logout" button
 
-3. Enter email in “Email Address” field (vladTest1@gmail.com)
-4. Enter password in “Password” field (vladTest1)
-5. Click “Login” button
-6. Wait for page navigation
-7. Verify URL changed to “https://automationexercise.com/”
-8. Verify logged in (username visible in header)
-9. Verify username format: "Logged in as Vlad"
-10. Click "Logout" button
-11. Wait for page navigation
-12. Verify URL changed to “https://automationexercise.com/login”
-13. Verify logged out (login button visible again)
-Expected Result: 
-1. Login page displays correctly:
-- "Login to your account" section visible
-- Email and password fields present
-- Login button visible
-2. After entering valid credentials and clicking Login:
-- Page navigates to homepage
-- URL changes to https://automationexercise.com/
-- No error messages displayed
-3. After successful login:
-- Username displayed in header
-- Format: "Logged in as Vlad"
-- Access to authenticated features
-- Logout button visible
-4. After clicking Logout:
-- User logged out successfully
-- Redirect to homepage - "Signup / Login" button visible again
-- No authenticated features accessible
-5. No errors during entire login/logout flow
+Expected Result:
+1. Login page loads:
+   - URL: '/login'
+   - "Login to your account" section visible
+2. After login:
+   - URL changes to '/'
+   - Username in header: "Logged in as Vlad"
+   - Logout button visible
+   - No error messages
+3. After logout:
+   - URL changes to '/login'
+   - "Login to your account" section visible
 
 Actual Result:
+As expected
 
 Post-conditions:
 * User logged out
 * Test user remains in system (not deleted)
 * Available for next test run
 
-Status: Not Run
+Status: Passed
 

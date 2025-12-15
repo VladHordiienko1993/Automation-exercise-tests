@@ -15,5 +15,9 @@ module.exports = {
         city: 'Mumbai',
         zipcode: '400001',
         mobile: '+353123456789',
-    }
+    },
+    loginUser: {
+        email: 'vladTest1@gmail.com',
+        password: 'vladTest1'
+    } 
 }

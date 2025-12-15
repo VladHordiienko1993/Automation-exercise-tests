@@ -18,7 +18,10 @@ class HomePage{
 
     async navigate(){
         await this.page.goto('/');
-        await this.cookieDialog.click();
+  
+        try {
+        await this.cookieDialog.click({ timeout: 3000 });
+    } catch {}
     };
     async clickSignupLoginButton(){
         await this.signupLoginButton.click();
@@ -26,6 +29,10 @@ class HomePage{
 
     async clickDeleteAccount(){
         await this.deleteAccountButton.click()
+    };
+
+    async clickLogoutButton(){
+        await this.logoutButton.click();
     }
 
 }

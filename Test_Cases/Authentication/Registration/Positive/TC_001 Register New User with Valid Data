@@ -25,7 +25,7 @@ Test Data:
 * Mobile: +353123456789
 
 Steps:
-1. Navigate to https://automationexercise.com
+1. Navigate to '/'
 2. Click "Signup / Login" button
 3. Enter name and email
 4. Click "Signup" button
@@ -40,10 +40,10 @@ Steps:
 Expected Result:
 1. Home page loads (logo visible)
 2. Signup form accessible
-3. Account creation form loads (URL /signup)
-4. "ACCOUNT CREATED!" message (URL /account_created)
-5. User logged in (username in header) (URL /)
-6. "ACCOUNT DELETED!" message (URL /delete_account)
+3. Account creation form loads (URL '/signup')
+4. "ACCOUNT CREATED!" message (URL '/account_created')
+5. User logged in (username in header) (URL '/')
+6. "ACCOUNT DELETED!" message (URL '/delete_account')
 
 Actual Result:
 As expected
