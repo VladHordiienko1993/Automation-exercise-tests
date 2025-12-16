@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 const HomePage = require('../../pages/HomePage');
 const SignupLoginPage = require('../../pages/SignupLoginPage');
-const testData = require('../../test-data/users');
+const {loginUser} = require('../../test-data/users');
 
 
 test('TC_003 Login user with valid data',async({page})=>{
@@ -11,7 +11,7 @@ test('TC_003 Login user with valid data',async({page})=>{
     await signupLoginPage.navigate();
     await expect(page).toHaveURL('/login');
     await expect(signupLoginPage.loginFormHeader).toBeVisible();
-    await signupLoginPage.fillLoginForm(testData.loginUser.email,testData.loginUser.password);
+    await signupLoginPage.fillLoginForm(loginUser.email,loginUser.password);
     await signupLoginPage.clickLoginButton();
     await expect(page).toHaveURL('/');
     await expect(homePage.loggedInUserName).toBeVisible();

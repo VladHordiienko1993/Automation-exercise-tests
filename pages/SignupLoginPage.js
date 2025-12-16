@@ -21,6 +21,7 @@ class SignupLoginPage{
         this.emailInputForLogin = page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address');
         this.passwordInput = page.getByRole('textbox', { name: 'Password' });
         this.loginButton = page.getByRole('button', { name: 'Login' });
+        this.customEmailPasswordErrorMessage = page.getByText('Your email or password is')
 
 //          Other
         this.cookieDialog = page.getByRole('button', { name: /Consent|Соглашаюсь/i });
