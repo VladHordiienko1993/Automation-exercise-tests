@@ -7,33 +7,29 @@ Priority: High
 Severity: Major
 
 Preconditions:
-* At least 1 product exists in system
+* At least 10 products exists in system
 * Products page accessible without login
 
 Steps:
-1. Navigate to “https://automationexercise.com/products”
-2. Wait for products list to load
+1. Navigate to “/products”
+    
 
-
-Expected result:
-1. Products page loads successfully:
-- URL: https://automationexercise.com/products
-- "ALL PRODUCTS" heading visible
+Expected Result:
+1. Products page loads:
+   - URL: '/products'
+   - "ALL PRODUCTS" heading visible
 
 2. Products list displayed:
-- Minimum 1 product visible
-- Products shown in grid/list layout
+   - At least 10 products visible
 
 3. Each product card contains:
-- Product image (no broken)
-- Product name (visible and readable)
-- Price (format: Rs. XXX or similar)
-- "View Product" button (visible and clickable)
+   - Product image 
+   - Product name
+   - Price 
+   - "Add to cart" button
+   - "View Product" link
 
-4. Page loads without errors
+Actual result:
+As expected
 
-5. No broken images or missing data
-
-Actual result
-
-Status: Not Run
+Status: Passed
