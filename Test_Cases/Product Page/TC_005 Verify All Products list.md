@@ -13,16 +13,13 @@ Preconditions:
 Steps:
 1. Navigate to “/products”
     
-
 Expected Result:
 1. Products page loads:
    - URL: '/products'
    - "ALL PRODUCTS" heading visible
-
 2. Products list displayed:
    - At least 10 products visible
-
-3. Each product card contains:
+3. Product card contains:
    - Product image 
    - Product name
    - Price 
