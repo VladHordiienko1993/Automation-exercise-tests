@@ -1,0 +1,606 @@
+{
+	"info": {
+		"_postman_id": "001116a1-bc2a-4b86-af78-240fd6bbe1fb",
+		"name": "Automation Exercise API",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31368815"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "API 1: Get All Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200',()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Products array exists and not empty',()=>{",
+									"    const product = pm.response.json().products;",
+									"",
+									"    pm.expect(product).to.be.an('array');",
+									"    pm.expect(product.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test('First product has required fields', ()=>{",
+									"    const product = pm.response.json().products[0];",
+									"   ",
+									"    pm.expect(product).to.have.property('id');",
+									"    pm.expect(product).to.have.property('name');",
+									"    pm.expect(product).to.have.property('price');",
+									"    pm.expect(product).to.have.property('brand');",
+									"    pm.expect(product).to.have.property('category');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/productsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productsList"
+							]
+						},
+						"description": "**Endpoint:** GET /api/productsList  \n  \n**Purpose:** Retrieve all available products from the catalog  \n  \n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with products array containing id, name, price, brand, category  \n  \n**Tests:**  \n\\- Status code is 200  \n\\- Products array exists and not empty  \n\\- First product has all required fields (id, name, price, brand, category)"
+					},
+					"response": []
+				},
+				{
+					"name": "API 5: Search Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200',()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('All products contain \"dress\" in name or category', ()=>{",
+									"    const products = pm.response.json().products;",
+									"    products.forEach(product =>{",
+									"        const hasInName = product.name.toLowerCase().includes('dress');",
+									"        const hasInCategory = product.category.category.toLowerCase().includes('dress');",
+									"        pm.expect(hasInName || hasInCategory).to.be.true;",
+									"    });",
+									"});",
+									"",
+									"pm.test('Products array exists and not empty', ()=>{",
+									"    const products = pm.response.json().products;",
+									"    pm.expect(products).to.be.an('array');",
+									"    pm.expect(products.length).to.be.above(0)",
+									"});",
+									"",
+									"pm.test('First product has required fields', ()=>{",
+									"    const product = pm.response.json().products[0];",
+									"    pm.expect(product).to.have.property('id');",
+									"    pm.expect(product).to.have.property('name');",
+									"    pm.expect(product).to.have.property('price');",
+									"    pm.expect(product).to.have.property('brand');",
+									"    pm.expect(product).to.have.property('category');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search_product",
+									"value": "dress",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/searchProduct",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"searchProduct"
+							]
+						},
+						"description": "**Endpoint:** POST /api/searchProduct  \n  \n**Purpose:** Search products by name or category keyword  \n  \n**Request Body (form-data):**  \n\\- search_product: Search query (e.g., \"dress\", \"top\", \"polo\")  \n  \n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with filtered products array  \n  \n**Tests:**  \n\\- Status code is 200  \n\\- Products array exists and not empty  \n\\- All products contain search term in name or category  \n\\- First product has all required fields"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "API 7: Login Valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', ()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Message is \"User exists!', ()=>{",
+									"    const messge = pm.response.json().message;",
+									"    pm.expect(messge).to.eql('User exists!')",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "vladTest1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "vladTest1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						},
+						"description": "**Endpoint:** POST /api/verifyLogin  \n  \n**Purpose:** Verify user login credentials  \n  \n**Request Body (form-data):**  \n\\- email: User email (vladTest1@gmail.com)  \n\\- password: User password (vladTest1)  \n  \n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with responseCode and message  \n  \n**Tests:**  \n\\- Status code is 200  \n\\- Message is \"User exists!\"  \n  \n**Note:** This endpoint only verifies credentials, does not return authentication tokens"
+					},
+					"response": []
+				},
+				{
+					"name": "API 10: Login Invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', ()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response code is 404', ()=>{",
+									"    const resposeStatus = pm.response.json().responseCode;",
+									"    pm.expect(resposeStatus).to.eql(404);",
+									"})",
+									"",
+									"pm.test('Message is \"User not found!', ()=>{",
+									"    const message = pm.response.json().message;",
+									"    pm.expect(message).to.be.eql('User not found!');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "vladTest1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "WrongPassword123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/verifyLogin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						},
+						"description": "**Endpoint:** POST /api/verifyLogin  \n  \n**Purpose:** Verify login with invalid credentials (negative test)  \n  \n**Request Body (form-data):**  \n\\- email: vladTest1@gmail.com  \n\\- password: WrongPassword123 (incorrect)  \n  \n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with responseCode 404 and error message  \n  \n**Tests:**  \n\\- Status code is 200  \n\\- Response code is 404  \n\\- Message is \"User not found!\"  \n  \n**Note:** Tests negative scenario - authentication should fail"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "API 11: Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', ()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('response code is 201', ()=>{",
+									"    const responseCode = pm.response.json().responseCode;",
+									"    pm.expect(responseCode).to.eql(201);",
+									"});",
+									"",
+									"pm.test('Response message is \"User created!', ()=>{",
+									"    const responesMessage = pm.response.json().message;",
+									"    pm.expect(responesMessage).to.eql('User created!')",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Test User API",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{testEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Test123!",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1995",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "User",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Test Company",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "123 Test Street",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "Apt 1",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "400001",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Maharashtra",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Mumbai",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "+353123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/createAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						},
+						"description": "**Endpoint:** POST /api/createAccount\n\n**Purpose:** Create new user account with complete profile\n\n**Request Body (form-data):**  \nname: Test User API  \nemail: {{testEmail}}  \npassword: Test123!  \ntitle: Mr  \nbirth_date: 1  \nbirth_month: 1  \nbirth_year: 1995  \nfirstname: Test  \nlastname: User  \ncompany: Test Company  \naddress1: 123 Test Street  \naddress2: Apt 1  \ncountry: India  \nzipcode: 400001  \nstate: Maharashtra  \ncity: Mumbai  \nmobile_number: +353123456789\n\n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with responseCode 201 and success message\n\n**Tests:**  \n\\- Status code is 200  \n\\- Response code is 201  \n\\- Message is \"User created!\""
+					},
+					"response": []
+				},
+				{
+					"name": "API 12: Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', ()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response message is \"Account deleted!\"', ()=>{",
+									"    const responseMessage = pm.response.json().message;",
+									"    pm.expect(responseMessage).to.eql('Account deleted!');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{testEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Test123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/deleteAccount",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"deleteAccount"
+							]
+						},
+						"description": "**Endpoint:** DELETE /api/deleteAccount\n\n**Purpose:** Delete user account\n\n**Request Body (form-data):**\n\n- email: {{testEmail}}\n- password: Test123!\n    \n\n**Response:**\n\n- Status: 200 OK\n- Body: JSON with responseCode and success message\n    \n\n**Tests:**\n\n- Status code is 200\n- Message is \"Account deleted!\"\n    \n\n**Note:** Deletes user created in API 11. Uses same email from {{testEmail}} variable"
+					},
+					"response": []
+				},
+				{
+					"name": "API 14: Get User by Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', ()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('User object exists', ()=>{",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('object');",
+									"});",
+									"",
+									"pm.test('User has required fields', ()=>{",
+									"    const user = pm.response.json().user;",
+									"    pm.expect(user).to.have.property('id');",
+									"    pm.expect(user).to.have.property('name');",
+									"    pm.expect(user).to.have.property('email');",
+									"    pm.expect(user).to.have.property('title');",
+									"    pm.expect(user).to.have.property('birth_day');",
+									"    pm.expect(user).to.have.property('birth_month');",
+									"    pm.expect(user).to.have.property('birth_year');",
+									"    pm.expect(user).to.have.property('first_name');",
+									"    pm.expect(user).to.have.property('last_name');",
+									"    pm.expect(user).to.have.property('company');",
+									"    pm.expect(user).to.have.property('address1');",
+									"    pm.expect(user).to.have.property('address2');",
+									"    pm.expect(user).to.have.property('country');",
+									"    pm.expect(user).to.have.property('state');",
+									"    pm.expect(user).to.have.property('city');",
+									"    pm.expect(user).to.have.property('zipcode');",
+									"});",
+									"",
+									"pm.test('Email matches requested email', () => {",
+									"    const user = pm.response.json().user;",
+									"    const requestedEmail = pm.request.url.query.get('email');",
+									"    pm.expect(user.email).to.eql(requestedEmail);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/getUserDetailByEmail?email=vladTest1@gmail.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"getUserDetailByEmail"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "vladTest1@gmail.com"
+								}
+							]
+						},
+						"description": "**Endpoint:** GET /api/getUserDetailByEmail  \n  \n**Purpose:** Retrieve complete user account details by email  \n  \n**Request Parameters (Query):**  \n\\- email: User email address (vladTest1@gmail.com)  \n  \n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with user object containing all account details  \n  \n**Tests:**  \n\\- Status code is 200  \n\\- User object exists  \n\\- User has all required fields (id, name, email, title, birth details, company, address, zipcode, etc.)  \n\\- Email matches requested email  \n  \n**Note:** Returns full user profile including personal and address information (mobile_number not included in response)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "API 3: Get All Brands",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', ()=>{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Brands array exists and not empty', ()=>{",
+									"    const brands = pm.response.json().brands;",
+									"    pm.expect(brands.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test('First brand has required fields', ()=>{",
+									"    const brand = pm.response.json().brands[0];",
+									"",
+									"    pm.expect(brand).to.have.property('id');",
+									"    pm.expect(brand).to.have.property('brand');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/brandsList",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"brandsList"
+							]
+						},
+						"description": "**Endpoint:** GET /api/brandsList  \n  \n**Purpose:** Retrieve all available product brands  \n  \n**Response:**  \n\\- Status: 200 OK  \n\\- Body: JSON with brands array containing id and brand name  \n  \n**Tests:**  \n\\- Status code is 200  \n\\- Brands array exists and not empty  \n\\- First brand has required fields (id, brand)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://automationexercise.com"
+		},
+		{
+			"key": "testEmail",
+			"value": "testapi{{$timestamp}}@test.com",
+			"type": "string"
+		}
+	]
+}
